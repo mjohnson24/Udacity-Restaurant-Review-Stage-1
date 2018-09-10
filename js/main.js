@@ -1,8 +1,15 @@
-let restaurants,
-  neighborhoods,
-  cuisines
-var newMap
-var markers = []
+let restaurants = "",
+  neighborhoods = "",
+  cuisines = "";
+var newMap = "";
+var markers = [];
+
+if (navigator.serviceWorker) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(registration => console.log("Service Worker: Registered", registration))
+    .catch(e => console.log("Service Worker: Registration failed", e));
+}
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -180,9 +187,9 @@ createRestaurantHTML = (restaurant) => {
   more.tabindex = '3';
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  li.append(more);
 
-  return li
+  return li;
 }
 
 /**
@@ -210,10 +217,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
-
-if (navigator.serviceWorker) {
-  navigator.serviceWorker
-    .register("sw.js")
-    .then(registration => console.log("Service Worker: Registered", registration))
-    .catch(e => console.log("Service Worker: Registration failed", e));
-}

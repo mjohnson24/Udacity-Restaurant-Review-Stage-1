@@ -1,6 +1,13 @@
 let restaurant;
 var newMap;
 
+if (navigator.serviceWorker) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(registration => console.log("Service Worker: Registered", registration))
+    .catch(e => console.log("Service Worker: Registration failed", e));
+}
+
 /**
  * Initialize map as soon as the page is loaded.
  */
