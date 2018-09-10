@@ -34,10 +34,14 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-    event.respondWidth(
+    event.respondWith(
         caches.match(event.request).then(function (response) {
             if (response) {
                 console.log('Oooh Oooh! Guess what! I Found ', event.request, ' in cache');
+                // Check if we received a valid response
+                if(!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
+                }
             } else {
                 console.log('Sorry no cache for you! Could not find ', event.request, ' in cache');
                 return fetch(event.request)
